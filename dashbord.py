@@ -330,7 +330,9 @@ AIRCRAFT_FILE = os.path.join(
     "data.csv"
 )
 
-
+if not os.path.exists(AIRCRAFT_FILE):
+    st.error(f"Fichier introuvable : {AIRCRAFT_FILE}")
+    st.stop()
 # ============================================================
 # 4. MODÈLES
 # ============================================================
