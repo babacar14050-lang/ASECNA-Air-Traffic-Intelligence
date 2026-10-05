@@ -1,8 +1,8 @@
+streamlit
 pandas
 numpy
 scikit-learn
 xgboost
-streamlit
 plotly
 pydeck
 joblib
