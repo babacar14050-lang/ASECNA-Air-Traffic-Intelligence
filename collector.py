@@ -32,10 +32,10 @@ BASE_URL = "https://opensky-network.org/api/states/all"
 
 # Zone ASECNA + région proche
 PARAMS = {
-    "lamin": -27,
+    "lamin": -28,
     "lamax": 28,
     "lomin": -18,
-    "lomax": 55
+    "lomax": 54
 }
 
 
