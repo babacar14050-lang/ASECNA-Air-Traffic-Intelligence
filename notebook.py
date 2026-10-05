@@ -28,7 +28,7 @@ warnings.filterwarnings("ignore")
 DOSSIER = r"C:\Users\INDEX INFORMATIQUE\Desktop\Master\data\donnees_opensky"
 CSV_SORTIE = r"C:\Users\INDEX INFORMATIQUE\Desktop\Master\data\dataset_ASECNA_2017_2022.csv"
 
-DOSSIER_MODELES = r"C:\Users\INDEX INFORMATIQUE\Desktop\Master\models\XGBoost"
+DOSSIER_MODELES = r"C:\Users\INDEX INFORMATIQUE\Desktop\Master\models"
 MODELE_SORTIE = os.path.join(DOSSIER_MODELES, "xgboost_congestion_2h.pkl")
 FEATURES_SORTIE = os.path.join(DOSSIER_MODELES, "features_xgboost_2h.pkl")
 
