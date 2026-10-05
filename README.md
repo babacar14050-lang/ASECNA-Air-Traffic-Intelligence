@@ -417,19 +417,9 @@ Les règles correspondantes sont définies dans `.gitignore`.
 
 L'évaluation du modèle Machine Learning peut s'appuyer sur plusieurs métriques adaptées à la tâche étudiée.
 
-Pour une régression :
-
 * MAE — Mean Absolute Error
 * RMSE — Root Mean Squared Error
 * R² — Coefficient de détermination
-
-Pour une classification :
-
-* Accuracy
-* Precision
-* Recall
-* F1-score
-* ROC-AUC
 
 Les résultats expérimentaux peuvent être intégrés dans le dashboard ou présentés dans le mémoire.
 
@@ -506,28 +496,6 @@ Les performances dépendent notamment :
 
 ---
 
-# 👨‍💻 Auteur
-
-**Projet : ASECNA Air Traffic Intelligence**
-
-Développement autour de :
-
-* Python
-* Data Science
-* Machine Learning
-* ADS-B
-* Visualisation interactive
-* Streamlit
-
----
-
-# 📄 Licence
-
-Projet développé dans un cadre académique et de recherche.
-
-Toute utilisation, modification ou redistribution des données ADS-B doit respecter les conditions de diffusion et les licences applicables aux sources de données utilisées.
-
----
 
 <p align="center">
 
