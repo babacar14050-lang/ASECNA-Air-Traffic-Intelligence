@@ -486,10 +486,22 @@ ASECNA_ZONES = {
     },
 
     "Mauritanie": {
+        "lat_min": 14.7,
+        "lat_max": 27.3,
+        "lon_min": -17.1,
+        "lon_max": -4.8
+    },
+ "Rim_Est": {
+        "lat_min": 14.5,
+        "lat_max": 27.5,
+        "lon_min": -11,
+        "lon_max": -4.0
+    },
+ "Rim_West": {
         "lat_min": 14.5,
         "lat_max": 27.5,
         "lon_min": -17.5,
-        "lon_max": -4.0
+        "lon_max": -11
     },
 
     "Niger": {
@@ -1411,7 +1423,7 @@ if latest_adsb.empty:
 
 
 # ============================================================
-# 19. KPI
+# 17. KPI
 # ============================================================
 
 st.markdown(
@@ -1438,7 +1450,28 @@ with k1:
     )
 
 
+
+
 with k2:
+
+    st.metric(
+
+        "📊 DENSITÉ",
+
+        f"{density:.3f}"
+    )
+
+
+with k3:
+
+    st.metric(
+
+        "🚀 VITESSE MOY.",
+
+        f"{avg_speed:.0f} km/h"
+    )
+
+with k4:
 
     st.metric(
 
@@ -1450,30 +1483,9 @@ with k2:
     )
 
 
-with k3:
-
-    st.metric(
-
-        "📊 DENSITÉ",
-
-        f"{density:.3f}"
-    )
-
-
-with k4:
-
-    st.metric(
-
-        "🚀 VITESSE MOY.",
-
-        f"{avg_speed:.0f} km/h"
-    )
-
-
-
 
 # ============================================================
-# 20. ÉTAT CONGESTION
+# 18. ÉTAT CONGESTION
 # ============================================================
 
 if congestion < 0.30:
@@ -1501,7 +1513,7 @@ else:
     )
 
 # ============================================================
-# 36. PRÉVISION XGBOOST
+# 19. PRÉVISION XGBOOST
 # ============================================================
 
 st.markdown(

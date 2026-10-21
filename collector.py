@@ -1,18 +1,6 @@
 # ==========================================================
-# COLLECTOR PRO OPENSKY (ANTI-BAN / STABLE / PRODUCTION)
-# ==========================================================
-# Features :
-# ✅ Authentification OpenSky
-# ✅ Respect rate limit
-# ✅ Retry automatique
-# ✅ Backoff exponentiel si erreur 429
-# ✅ Timeout réseau
-# ✅ Rotation fréquence requêtes
-# ✅ Filtrage zone géographique
-# ✅ Sauvegarde CSV incrémentale
-# ✅ Logs propres
-# ✅ Reprise automatique
-# ==========================================================
+# IMPORTATION DES BIBLIOTHEQUES
+# ===================================================
 
 import requests
 import pandas as pd
