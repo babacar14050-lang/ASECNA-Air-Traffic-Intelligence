@@ -491,18 +491,7 @@ ASECNA_ZONES = {
         "lon_min": -17.1,
         "lon_max": -4.8
     },
- "Rim_Est": {
-        "lat_min": 14.5,
-        "lat_max": 27.5,
-        "lon_min": -11,
-        "lon_max": -4.0
-    },
- "Rim_West": {
-        "lat_min": 14.5,
-        "lat_max": 27.5,
-        "lon_min": -17.5,
-        "lon_max": -11
-    },
+
 
     "Niger": {
         "lat_min": 11.5,
@@ -2999,7 +2988,7 @@ st.markdown(
     
         CONGESTION FORECAST +2H
 
-    </div>$y
+    </div>
     """,
     unsafe_allow_html=True
 )
