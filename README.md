@@ -4,11 +4,10 @@
 
 Ce projet porte sur la **conception et le développement d'un système intelligent de prédiction de la congestion du trafic aérien**, fondé sur l'exploitation des données de surveillance aéronautique et l'utilisation de techniques d'intelligence artificielle.
 
-L'objectif principal est de développer une plateforme capable de collecter, traiter, analyser et visualiser les données de trafic aérien afin d'estimer le niveau de congestion dans des zones géographiques déterminées.
+L'objectif principal est de développer une plateforme capable de collecter, traiter, analyser et visualiser les données de trafic aérien afin d'estimer le niveau de congestion dans la zone de l'ASECNA(Agence pour la sécurité de la navigation aérienne en afrique et à madagascar).
 
 Le système s'appuie notamment sur les données ADS-B (*Automatic Dependent Surveillance–Broadcast*) et sur des algorithmes de Machine Learning pour étudier la répartition spatiale des aéronefs, leur vitesse, leur altitude et la densité du trafic.
 
-Une attention particulière est accordée à l'espace aérien mauritanien, notamment aux secteurs Est et Ouest, tout en permettant une analyse comparative avec les autres pays de la région.
 
 ## 🎯 2. Objectifs du projet
 
@@ -25,7 +24,7 @@ Les objectifs principaux sont les suivants :
 
 ## 🛰️ 3. Sources de données
 
-Le système exploite des données de surveillance aéronautique disponibles auprès de sources compatibles avec le projet.
+Le système exploite des données de surveillance aéronautique disponibles sur  le réseau opensky.
 
 Les données ADS-B peuvent notamment contenir :
 
@@ -43,7 +42,6 @@ Les données ADS-B peuvent notamment contenir :
 
 La disponibilité et la qualité de ces variables dépendent de la source de données utilisée.
 
-**Remarque :** un callsign doit correspondre à un indicatif réellement observé ou vérifié. Les identifiants ICAO, les indicatifs de vol et les immatriculations sont des informations distinctes.
 
 ## 🧠 4. Approche méthodologique
 
