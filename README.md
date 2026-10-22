@@ -1,506 +1,123 @@
-# ✈️ ASECNA Air Traffic Intelligence
-
-### Plateforme intelligente de surveillance et de prédiction de la congestion du trafic aérien basée sur les données ADS-B et le Machine Learning
-
-<p align="center">
-  <strong>Surveillance temps réel • Analyse ADS-B • Prédiction de congestion • Visualisation interactive</strong>
-</p>
-
----
-
-## 📌 Présentation du projet
-
-**ASECNA Air Traffic Intelligence** est une plateforme intelligente dédiée à la **surveillance, l'analyse et la prédiction de la congestion du trafic aérien** dans l'espace aérien couvert par l'ASECNA.
-
-Le système exploite les données issues de l'**Automatic Dependent Surveillance–Broadcast (ADS-B)** afin de construire une vision dynamique du trafic aérien et d'identifier les situations susceptibles de générer une congestion.
-
-La plateforme combine :
-
-* la collecte et le traitement des données ADS-B ;
-* l'analyse spatio-temporelle du trafic aérien ;
-* le calcul d'indicateurs de congestion ;
-* l'utilisation du **Machine Learning**, notamment **XGBoost** ;
-* la prédiction de la congestion à court terme ;
-* la visualisation interactive des aéronefs ;
-* un dashboard développé avec **Streamlit**.
-
-L'objectif est de fournir un outil d'aide à l'analyse du trafic permettant de mieux comprendre la dynamique du trafic aérien et d'anticiper les périodes de forte densité.
-
----
-
-## 🎯 Objectifs
-
-### Objectif général
-
-Concevoir et développer un système intelligent capable de **surveiller et prédire la congestion du trafic aérien** à partir des données ADS-B.
-
-### Objectifs spécifiques
-
-* Collecter et exploiter des données ADS-B.
-* Nettoyer et préparer les données aéronautiques.
-* Identifier les positions et caractéristiques des aéronefs.
-* Analyser la répartition géographique du trafic.
-* Construire des indicateurs de congestion.
-* Développer un modèle de prédiction basé sur le Machine Learning.
-* Évaluer les performances du modèle.
-* Visualiser le trafic aérien sur une carte interactive.
-* Fournir une interface de surveillance accessible aux utilisateurs.
-* Préparer la solution pour un déploiement cloud.
-
----
-
-# 🏗️ Architecture du système
-
-```text
-                    ┌──────────────────────┐
-                    │     Données ADS-B    │
-                    │  Positions / vitesse │
-                    │ altitude / heading   │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Collecte & Nettoyage │
-                    │      des données      │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Feature Engineering  │
-                    │                      │
-                    │ • densité trafic     │
-                    │ • vitesse            │
-                    │ • altitude           │
-                    │ • variation vitesse  │
-                    │ • indicateurs spatio │
-                    │   temporels           │
-                    └──────────┬───────────┘
-                               │
-                 ┌─────────────┴─────────────┐
-                 │                           │
-                 ▼                           ▼
-      ┌────────────────────┐      ┌────────────────────┐
-      │ Analyse du trafic  │      │ Machine Learning   │
-      │                    │      │                    │
-      │ • densité          │      │      XGBoost       │
-      │ • distribution     │      │                    │
-      │ • congestion       │      │ Prédiction +2h     │
-      └──────────┬─────────┘      └──────────┬─────────┘
-                 │                           │
-                 └─────────────┬─────────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │ Dashboard Streamlit  │
-                    │                      │
-                    │ • Carte ATC          │
-                    │ • Aéronefs           │
-                    │ • Statistiques       │
-                    │ • Congestion         │
-                    │ • Prédictions        │
-                    └──────────────────────┘
-```
+# ✈️ Conception et développement d’un système intelligent de prédiction de la congestion du trafic aérien
 
----
+## 📌 1. Présentation du projet
 
-# 📊 Données ADS-B
+Ce projet porte sur la **conception et le développement d'un système intelligent de prédiction de la congestion du trafic aérien**, fondé sur l'exploitation des données de surveillance aéronautique et l'utilisation de techniques d'intelligence artificielle.
 
-Le système exploite principalement les informations ADS-B associées aux aéronefs.
+L'objectif principal est de développer une plateforme capable de collecter, traiter, analyser et visualiser les données de trafic aérien afin d'estimer le niveau de congestion dans des zones géographiques déterminées.
 
-Les variables utilisées peuvent notamment inclure :
+Le système s'appuie notamment sur les données ADS-B (*Automatic Dependent Surveillance–Broadcast*) et sur des algorithmes de Machine Learning pour étudier la répartition spatiale des aéronefs, leur vitesse, leur altitude et la densité du trafic.
 
-| Variable         | Description                     |
-| ---------------- | ------------------------------- |
-| `icao24`         | Identifiant unique de l'aéronef |
-| `callsign`       | Indicatif de l'aéronef          |
-| `latitude`       | Latitude                        |
-| `longitude`      | Longitude                       |
-| `baro_altitude`  | Altitude barométrique           |
-| `geo_altitude`   | Altitude géométrique            |
-| `velocity`       | Vitesse                         |
-| `heading`        | Cap de l'aéronef                |
-| `vertical_rate`  | Taux de montée/descente         |
-| `on_ground`      | État au sol/en vol              |
-| `origin_country` | Pays d'origine                  |
-| `collected_at`   | Date et heure de collecte       |
+Une attention particulière est accordée à l'espace aérien mauritanien, notamment aux secteurs Est et Ouest, tout en permettant une analyse comparative avec les autres pays de la région.
 
-Les données sont ensuite transformées afin de produire des variables adaptées à l'analyse et au Machine Learning.
+## 🎯 2. Objectifs du projet
 
----
+Les objectifs principaux sont les suivants :
 
-# 🧠 Machine Learning
+- Collecter et exploiter les données de trafic aérien issues des sources ADS-B disponibles.
+- Identifier les aéronefs à partir de leurs indicatifs de vol (*callsigns*), lorsque ceux-ci sont disponibles.
+- Analyser la répartition géographique du trafic aérien.
+- Calculer des indicateurs de densité, de vitesse et de concentration du trafic.
+- Détecter les situations de forte densité et estimer le niveau de congestion.
+- Développer un modèle prédictif utilisant des algorithmes de Machine Learning, notamment XGBoost.
+- Concevoir un tableau de bord interactif avec Streamlit.
+- Faciliter la surveillance et l'analyse du trafic dans l'espace aérien mauritanien.
 
-## Modèle utilisé
+## 🛰️ 3. Sources de données
 
-Le modèle principal utilisé dans le projet est :
+Le système exploite des données de surveillance aéronautique disponibles auprès de sources compatibles avec le projet.
 
-**XGBoost — Extreme Gradient Boosting**
+Les données ADS-B peuvent notamment contenir :
 
-XGBoost est particulièrement adapté aux données tabulaires et permet de modéliser des relations non linéaires entre les caractéristiques du trafic et le niveau de congestion.
+| Variable | Description |
+|---|---|
+| `timestamp` | Date et heure de l'observation |
+| `icao24` | Adresse ICAO de l'aéronef |
+| `callsign` | Indicatif de vol disponible |
+| `latitude` | Position géographique en latitude |
+| `longitude` | Position géographique en longitude |
+| `altitude` | Altitude de l'aéronef |
+| `velocity` | Vitesse de l'aéronef |
+| `heading` | Cap de l'aéronef |
+| `vertical_rate` | Taux de montée ou de descente |
 
-### Variables caractéristiques
+La disponibilité et la qualité de ces variables dépendent de la source de données utilisée.
 
-Selon la configuration du modèle, les caractéristiques peuvent inclure :
+**Remarque :** un callsign doit correspondre à un indicatif réellement observé ou vérifié. Les identifiants ICAO, les indicatifs de vol et les immatriculations sont des informations distinctes.
 
-* nombre d'aéronefs ;
-* densité du trafic ;
-* vitesse moyenne ;
-* variation de vitesse ;
-* altitude moyenne ;
-* variation d'altitude ;
-* indicateurs temporels ;
-* indicateurs géographiques.
+## 🧠 4. Approche méthodologique
 
-### Horizon de prédiction
+Le développement du système suit plusieurs étapes.
 
-Le système est conçu pour effectuer notamment une :
+### 4.1. Collecte des données
 
-> **Prédiction de la congestion à +2 heures**
+Récupération périodique des observations aéronautiques à partir d'une source ADS-B de opensky et d'une API autorisée.
 
-Cette approche permet d'aller au-delà de la simple surveillance et d'introduire une dimension prédictive dans l'analyse du trafic aérien.
+### 4.2. Prétraitement des données
 
----
+- Nettoyage des données manquantes et incohérentes.
+- Conversion des horodatages.
+- Vérification des coordonnées géographiques.
+- Suppression des observations dupliquées.
+- Filtrage des observations selon les zones d'étude.
 
-# 🚦 Indicateur de congestion
+### 4.3. Analyse descriptive
 
-La plateforme calcule un indice synthétique de congestion compris entre **0 et 1**.
+Calcul d'indicateurs permettant de caractériser le trafic aérien :
 
-L'indicateur combine notamment :
+- Nombre d'aéronefs observés.
+- Densité du trafic par secteur.
+- Répartition géographique des observations.
+- Distribution des altitudes et des vitesses.
+- Évolution temporelle du trafic.
+- Comparaison entre les secteurs Est et Ouest de la Mauritanie.
 
-* le nombre d'aéronefs ;
-* la densité du trafic ;
-* la variabilité des vitesses.
+### 4.4. Calcul du niveau de congestion
 
-Une pondération utilisée dans le système est :
+Le niveau de congestion est estimé à partir d'indicateurs de trafic, tels que la densité des observations, leur évolution temporelle et, lorsque les données le permettent, la proximité entre les aéronefs.
 
-```text
-Congestion =
-    0.50 × Traffic Score
-  + 0.30 × Density Score
-  + 0.20 × Speed Variation Score
-```
+Le système peut ensuite classer les situations en plusieurs niveaux, par exemple :
 
-### Classification
+- Faible congestion.
+- Congestion modérée.
+- Forte congestion.
 
-|       Score | Niveau        |
-| ----------: | ------------- |
-| 0.00 – 0.29 | 🟢 Faible     |
-| 0.30 – 0.59 | 🟡 Moyenne    |
-| 0.60 – 0.79 | 🟠 Forte      |
-| 0.80 – 1.00 | 🔴 Très forte |
+Les seuils de classification doivent être définis et validés à partir de données pertinentes. Une forte densité d'observations ne constitue pas, à elle seule, une preuve de conflit ou de surcharge opérationnelle.
 
-Cet indicateur constitue un **indicateur analytique du projet** et ne remplace pas les procédures opérationnelles officielles de gestion du trafic aérien.
+### 4.5. Modélisation prédictive
 
----
+L'algorithme **XGBoost** est envisagé pour apprendre les relations entre les caractéristiques du trafic et le niveau de congestion observé.
 
-# 🌍 Couverture géographique
+Les variables explicatives peuvent inclure :
 
-La plateforme permet d'analyser différentes zones et pays associés à l'espace de travail du projet.
+- La densité actuelle du trafic.
+- L'évolution du nombre d'aéronefs.
+- La vitesse moyenne.
+- La variabilité des vitesses.
+- L'heure et le secteur géographique.
+- Les observations historiques.
 
-Les secteurs intégrés comprennent notamment :
+Le modèle vise à estimer un niveau de congestion futur sur un horizon temporel défini.
 
-* 🇧🇯 Bénin
-* 🇧🇫 Burkina Faso
-* 🇨🇲 Cameroun
-* 🇨🇫 République centrafricaine
-* 🇰🇲 Comores
-* 🇨🇬 Congo
-* 🇨🇮 Côte d'Ivoire
-* 🇬🇦 Gabon
-* 🇬🇼 Guinée-Bissau
-* 🇬🇶 Guinée équatoriale
-* 🇲🇬 Madagascar
-* 🇲🇱 Mali
-* 🇲🇷 Mauritanie
-* 🇳🇪 Niger
-* 🇷🇼 Rwanda
-* 🇸🇳 Sénégal
-* 🇹🇩 Tchad
-* 🇹🇬 Togo
+Ses performances doivent être évaluées sur des données de test indépendantes, avec des métriques adaptées au type de prédiction réalisé.
 
-La plateforme permet notamment de filtrer les données par secteur/pays afin d'obtenir une analyse ciblée du trafic.
+## 📊 5. Tableau de bord interactif
 
----
+L'application est conçue pour proposer une interface de visualisation et d'analyse du trafic aérien.
 
-# 🖥️ Dashboard interactif
+Les fonctionnalités prévues ou développées peuvent inclure :
 
-L'interface utilisateur est développée avec **Streamlit**.
+- **Vue générale :** principaux indicateurs du trafic.
+- **Carte aéronautique :** représentation des positions des aéronefs.
+- **Analyse géographique :** comparaison des pays et des secteurs.
+- **Analyse temporelle :** évolution du trafic au cours du temps.
+- **Indicateurs de congestion :** suivi du niveau de densité par zone.
+- **Prédiction intelligente :** visualisation des estimations du modèle XGBoost.
+- **Filtres interactifs :** sélection des pays, secteurs et périodes d'analyse.
+- **Actualisation des données :** mise à jour selon la fréquence autorisée par la source de données.
 
-Elle fournit notamment :
+## 🛠️ 6. Technologies utilisées
 
-### ✈️ Surveillance aérienne
-
-* Position des aéronefs.
-* Identification `ICAO24`.
-* Callsign.
-* Altitude.
-* Vitesse.
-* Cap.
-* État de l'aéronef.
-
-### 🗺️ Cartographie
-
-Une carte interactive permet de visualiser :
-
-* la position des aéronefs ;
-* leur direction ;
-* leur répartition géographique ;
-* les secteurs sélectionnés ;
-* les zones de concentration du trafic.
-
-### 📊 Analyse
-
-Le dashboard permet également de suivre :
-
-* nombre d'aéronefs ;
-* densité du trafic ;
-* vitesse moyenne ;
-* variation de vitesse ;
-* niveau de congestion ;
-* congestion par pays ;
-* prédiction de congestion.
-
----
-
-# 🗂️ Structure du projet
-
-```text
-ASECNA-Air-Traffic-Intelligence/
-│
-├── 📄 dashbord.py
-├── 📄 collector.py
-├── 📄 filtre.py
-├── 📄 LSTM.py
-├── 📄 notebook.py
-├── 📄 requirements.txt
-├── 📄 README.md
-├── 📄 .gitignore
-│
-├── 📁 data/
-│   └── data.csv
-│
-└── 📁 models/
-    └── modèles Machine Learning
-```
-
-### Description des principaux fichiers
-
-| Fichier            | Rôle                                         |
-| ------------------ | -------------------------------------------- |
-| `dashbord.py`      | Application Streamlit et dashboard principal |
-| `collector.py`     | Collecte des données ADS-B                   |
-| `filtre.py`        | Filtrage et préparation des données          |
-| `LSTM.py`          | Expérimentation avec un modèle LSTM          |
-| `notebook.py`      | Analyse / expérimentation                    |
-| `data/data.csv`    | Données utilisées par l'application          |
-| `models/`          | Modèles Machine Learning                     |
-| `requirements.txt` | Dépendances Python                           |
-| `.gitignore`       | Fichiers exclus du dépôt                     |
-
----
-
-# ⚙️ Installation
-
-## 1. Cloner le dépôt
-
-```bash
-git clone https://github.com/babacar14050-lang/ASECNA-Air-Traffic-Intelligence.git
-```
-
-Puis :
-
-```bash
-cd ASECNA-Air-Traffic-Intelligence
-```
-
-## 2. Créer un environnement virtuel
-
-### Windows
-
-```bash
-python -m venv .venv
-```
-
-Activer l'environnement :
-
-```bash
-.venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
----
-
-# 📦 Installation des dépendances
-
-Installer les bibliothèques nécessaires :
-
-```bash
-pip install -r requirements.txt
-```
-
-Les principales technologies utilisées sont :
-
-* Python
-* Pandas
-* NumPy
-* Scikit-learn
-* XGBoost
-* Joblib
-* Plotly
-* PyDeck
-* Streamlit
-
----
-
-# ▶️ Lancer le dashboard
-
-Depuis le répertoire du projet :
-
-```bash
-streamlit run dashbord.py
-```
-
-L'application sera ensuite accessible localement depuis l'adresse indiquée par Streamlit.
-
----
-
-# ☁️ Déploiement
-
-Le projet peut être déployé sur **Streamlit Community Cloud**.
-
-Configuration recommandée :
-
-```text
-Repository : babacar14050-lang/ASECNA-Air-Traffic-Intelligence
-Branch     : main
-Main file  : dashbord.py
-```
-
-Le fichier suivant doit être présent à la racine du dépôt :
-
-```text
-requirements.txt
-```
-
-et les données nécessaires au fonctionnement de l'application doivent être disponibles dans :
-
-```text
-data/data.csv
-```
-
----
-
-# 🔒 Gestion des données
-
-Les données ADS-B peuvent être volumineuses et certaines données peuvent être sensibles ou soumises à des restrictions de redistribution.
-
-Le dépôt Git doit donc éviter de contenir :
-
-* données brutes volumineuses inutiles ;
-* fichiers temporaires ;
-* secrets ;
-* identifiants ;
-* fichiers `.env` ;
-* modèles expérimentaux non nécessaires.
-
-Les règles correspondantes sont définies dans `.gitignore`.
-
----
-
-# 📈 Évaluation du modèle
-
-L'évaluation du modèle Machine Learning peut s'appuyer sur plusieurs métriques adaptées à la tâche étudiée.
-
-* MAE — Mean Absolute Error
-* RMSE — Root Mean Squared Error
-* R² — Coefficient de détermination
-
-Les résultats expérimentaux peuvent être intégrés dans le dashboard ou présentés dans le mémoire.
-
----
-
-# 🔬 Perspectives d'amélioration
-
-Plusieurs extensions sont envisageables :
-
-### Court terme
-
-* amélioration du nettoyage ADS-B ;
-* augmentation du volume de données historiques ;
-* optimisation des variables explicatives ;
-* amélioration du calcul de congestion.
-
-### Moyen terme
-
-* prédictions multi-horizons : **+30 min, +1 h, +2 h, +6 h** ;
-* comparaison XGBoost / Random Forest / LightGBM ;
-* intégration de modèles temporels ;
-* amélioration de la détection des zones de forte densité.
-
-### Long terme
-
-* architecture de traitement en temps réel ;
-* streaming ADS-B continu ;
-* prédiction multi-secteurs ;
-* détection automatique des anomalies ;
-* intégration de données météorologiques ;
-* intégration avec des données de plans de vol ;
-* système d'aide à la décision pour l'analyse du trafic aérien.
-
----
-
-# 🎓 Contexte académique
-
-Ce projet s'inscrit dans le cadre d'un travail académique portant sur l'application du **Machine Learning à l'analyse du trafic aérien**.
-
-Il combine plusieurs domaines :
-
-```text
-ADS-B
-  ↓
-Data Engineering
-  ↓
-Feature Engineering
-  ↓
-Machine Learning
-  ↓
-Prédiction
-  ↓
-Visualisation
-  ↓
-Aide à l'analyse du trafic aérien
-```
-
----
-
-# ⚠️ Limites du système
-
-Cette plateforme constitue un **prototype de recherche et d'aide à l'analyse**.
-
-Les prédictions et indicateurs produits ne doivent pas être considérés comme des instructions opérationnelles de contrôle de la circulation aérienne.
-
-Les performances dépendent notamment :
-
-* de la qualité des données ADS-B ;
-* de la couverture des récepteurs ;
-* du volume historique disponible ;
-* de la qualité des variables utilisées ;
-* de la représentativité des données d'entraînement ;
-* des conditions opérationnelles réelles.
-
----
-
-
-<p align="center">
-
-### ✈️ ASECNA Air Traffic Intelligence
-
-<strong>Surveiller • Analyser • Prédire</strong>
-
-</p>
+| Technologie | Utilisation |
+|---|---|
+| Python |
